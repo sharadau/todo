@@ -3,27 +3,48 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Todo App </title>
-
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body ng-app="todoApp">
-<div class="nav-header">
-  <h3>Todo App</h3>
+<div class="container">
+    <div class="jumbotron">
+        <h3><span class="glyphicon glyphicon-list"></span> Todo App</h3>
+    </div>
 </div>
-<div ng-controller="MainCtrl">
-    <div class="row">
-        <input type="text" placeholder="Enter todos" ng-model="newTodo.text">
-        <button ng-click="add()">Add</button>
-    </div><br><br>
-    <div ng-repeat="item in todos">
-        <input type="checkbox" ng-model="item.completed"><span ng-bind="item.text"></span>
+<div class="container" ng-controller="MainCtrl">
+    <div >
+    <form name="form" ng-submit="add()">
+        <input type="text" name="todotext" placeholder="Enter todo" ng-model="newTodo.text" required>
+        <input type="submit" value="Add Todo" class="btn btn-primary" ng-disabled="form.$invalid">
+        <br>
+        <span ng-show="form.todotext.$error.required && form.todotext.$touched">
+            Please enter todo item
+        </span>
+
+    </form><br>
+        <div class="col-xs-6">
+            <div ng-repeat="item in todos">
+
+        <div class="col-xs-1">
+        <input type="checkbox" ng-model="item.completed">
+            </div>
+            <div class="col-xs-10">
+            <span ng-bind="item.text" ng-class="{'completed':item.completed}"></span>
+            </div>
+        <div class="col-xs-1">
         <button ng-click="delete(item)">X</button>
+            </div>
     </div>
-    <br><br>
-    <div class="row">
-       <button ng-click="clearCompleted()">Clear Completed</button>
-    </div>
+            </div><br>
+        <div class="col-xs-12">
+     <button ng-click="clearCompleted()">Clear Completed</button>
+            </div>
+
+</div>
 </div>
 <script src="js/angular.min.js"></script>
+<script src="js/ui-bootstrap-tpls-0.12.0.min.js"></script>
 <script src="scripts/app.js"></script>
 </body>
 </html>
